@@ -3,16 +3,19 @@
 <table border="1">
   <tr>
     <th>Id</th>
+    <th>Image</th>
     <th>Title</th>
     <th>Year</th>
     <th>Director</th>
     <th><th>
   </tr>
   <% Movie.order({ year: :desc, title: :asc }).each do |a_movie| %>
+    <% movie_director = Director.where({ id: a_movie.director_id }).first.name %>
     <tr>
       <td><%= a_movie.id %></td>
       <td><img src="<%= a_movie.image %>" alt="<%= a_movie.title %>" style="width:250px"></img></td>
       <td><%= a_movie.title %></td>
+      <td><%= movie_director %></td>
       <td><%= a_movie.year %></td>
       <td><a href="/movies/<%= a_movie.id %>">Show details</a></td>
     </tr>
