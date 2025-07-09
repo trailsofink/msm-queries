@@ -1,0 +1,112 @@
+<% an_actor = Actor.find(params[:id]) %>
+<h1>
+  Actor #<%= an_actor.id %>
+  details
+</h1>
+
+<a href="/actors">
+  Go back
+</a>
+
+<hr>
+
+<dl>
+  <dt>
+    Name
+  </dt>
+  <dd>
+    <%= an_actor.name %>
+  </dd>
+
+  <dt>
+    Dob
+  </dt>
+  <dd>
+    <%= an_actor.dob %>
+  </dd>
+
+  <dt>
+    Bio
+  </dt>
+  <dd>
+    <%= an_actor.bio %>
+  </dd>
+
+  <dt>
+    Image
+  </dt>
+  <dd>
+    <img src="<%= an_actor.image %>" style="width:250px;">
+  </dd>
+
+  <dt>
+    Created at
+  </dt>
+  <dd>
+    <%= an_actor.created_at %>
+  </dd>
+
+  <dt>
+    Updated at
+  </dt>
+  <dd>
+    <%= an_actor.updated_at %>
+  </dd>
+</dl>
+
+<hr>
+
+<h2>Filmography</h2>
+
+<table border="1">
+  <tr>
+    <th>
+      Title
+    </th>
+
+    <th>
+      Year
+    </th>
+
+    <th>
+      Director
+    </th>
+
+    <th>
+      Character name
+    </th>
+
+    <th>
+    </th>
+  </tr>
+
+  <% charactors = Character.where(actor_id: 21_111) %>
+  <% charactors.each do |charactor| %>
+    <% charactor.movie_id %>
+    <% movies = Movie.where(id: charactor.movie_id) %>
+    <% directors = Director.where(id: movies.first.director_id) %>
+    <tr>
+      <td>
+        <%= movies.first.title %>
+      </td>
+
+      <td>
+        <%= movies.first.year %>
+      </td>
+
+      <td>
+        <%= directors.first.name %>
+      </td>
+
+      <td>
+        <%= charactor.name %>
+      </td>
+
+      <td>
+        <a href="/movies/<%= movies.first.id %>">
+          Show details
+        </a>
+      </td>
+    </tr>
+  <% end %>
+</table>

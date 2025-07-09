@@ -1,0 +1,16 @@
+<% not_nil_dob = Director.where.not(dob: nil) %>
+<% youngest_director_array = not_nil_dob.order(dob: :desc) %>
+<% youngest_director = youngest_director_array.first %>
+<% date_object = Date.parse(youngest_director.dob.to_s) %>
+<% formatted_date_string = date_object.strftime("%B %e, %Y") %>
+
+<h1>Youngest director</h1>
+
+<p>The youngest director in our dataset right now is
+  <a href="/directors/<%= youngest_director.id %>"><%= youngest_director.name %></a>, born on
+  <%= formatted_date_string %>.</p>
+
+<p>(<a href="http://strftime.net/" target="_blank">http://strftime.net/</a>
+  is handy for putting together the formatting strings for the
+  <code>.strftime</code>
+  method.)</p>
